@@ -2,6 +2,8 @@
 
 namespace Core\Http;
 
+use Core\View\View;
+
 class Response
 {
 	protected $original;
@@ -17,6 +19,10 @@ class Response
 	public function setContent($content)
 	{
 		$this->original = $content;
+
+		if ($content instanceof View) {
+			$content = $content->render();
+		}
 
 		$this->content = $content;
 	}

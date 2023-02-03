@@ -1,11 +1,8 @@
 <?php
-use App\Controller\TestController;
+
+use App\Controller\HomeController;
 use Core\Application;
 
 $router = Application::getRouter();
 
-$router->get('/', function () {
-	return 'Hello';
-});
-
-$router->get('/test', [TestController::class, 'index']);
+$router->get('/', [HomeController::class, 'index']);
