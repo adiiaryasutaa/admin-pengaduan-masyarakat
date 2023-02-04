@@ -25,7 +25,7 @@
 			<div id="content">
 				{# top-bar #}
 				<div class="container-fluid">
-					{# body #}
+					{# main #}
 				</div>
 			</div>
 		</div>

@@ -2,18 +2,13 @@
 
 namespace App\Controller;
 
+use App\Layout\MainLayout;
+
 class HomeController
 {
 	public function index()
 	{
-		return view('layouts/main')
-			->nest([
-				'{# sidebar #}' => view('partials/sidebar'),
-				'{# top-bar #}' => view('partials/top-bar'),
-				'{# body #}' => view('dashboard')
-			])
-			->with([
-				'title' => 'Dashboard'
-			]);
+		return view('dashboard')
+			->useLayout(new MainLayout(), ['title' => 'Dashboard']);
 	}
 }
