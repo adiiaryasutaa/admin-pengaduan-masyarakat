@@ -3,16 +3,12 @@
 namespace Core\Routing;
 
 use Closure;
+use Core\Http\Request;
 use Core\Http\Response;
 
 class Router
 {
 	protected array $routes = [];
-
-	public function __construct()
-	{
-		# code...
-	}
 
 	public function addRoute(string $method, string $uri, array |callable $action)
 	{
@@ -62,6 +58,10 @@ class Router
 
 		$result = $action();
 
-		return new Response($result ?? '');
+		if (!$result instanceof Response) {
+			$result = new Response($result ?? '');
+		}
+
+		return $result;
 	}
 }

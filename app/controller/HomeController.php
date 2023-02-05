@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Layout\MainLayout;
 
-class HomeController
+class HomeController extends Controller
 {
 	public function index()
 	{

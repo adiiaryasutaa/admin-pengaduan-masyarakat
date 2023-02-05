@@ -2,7 +2,12 @@
 
 namespace Core;
 
+use App\Model\Petugas;
+use Core\Auth\AuthManager as Auth;
+use Core\Http\Request;
 use Core\Routing\Router;
+use Core\Session\Store as Session;
+use Core\Database\Connection as Database;
 
 class Application
 {
@@ -13,11 +18,19 @@ class Application
 
 	protected static self$selfInstance;
 	protected static Router $router;
+	protected static Request $request;
+	protected static Session $session;
+	protected static Database $database;
+	protected static Auth $auth;
 
 	public function __construct(array $options)
 	{
 		self::$selfInstance = $this;
 		self::$router = new Router();
+		self::$request = new Request();
+		self::$session = new Session();
+		self::$database = new Database();
+		self::$auth = new Auth();
 
 		self::$host = $options['host'];
 		self::$routePath = $options['paths']['route'];
@@ -25,26 +38,12 @@ class Application
 		self::$viewPath = $options['paths']['view'];
 
 		$this->registerRoutes();
-		//$this->includeAllControllers();
+		self::$auth->setAuthenticatebleModel(Petugas::class);
 	}
 
 	protected function registerRoutes()
 	{
 		require_once(self::$routePath);
-	}
-
-	protected function includeAllControllers()
-	{
-		$files = array_diff(scandir(self::$controllerPath), array('..', '.'));
-
-		foreach ($files as $file) {
-
-		}
-
-		echo "<pre>";
-		var_dump($files);
-		echo "</pre>";
-		die();
 	}
 
 	public function start()
@@ -72,5 +71,25 @@ class Application
 	public static function getRouter()
 	{
 		return self::$router;
+	}
+
+	public static function getRequest()
+	{
+		return self::$request;
+	}
+
+	public static function getSession()
+	{
+		return self::$session;
+	}
+
+	public static function getDatabase()
+	{
+		return self::$database;
+	}
+
+	public static function getAuth()
+	{
+		return self::$auth;
 	}
 }
