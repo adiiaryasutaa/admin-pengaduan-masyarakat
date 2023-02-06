@@ -13,7 +13,7 @@ class HomeController extends Controller
 			return redirect('/login');
 		}
 
-		return view('dashboard')
+		return view('dashboard', ['user' => auth()->user()])
 			->useLayout(new MainLayout(), ['title' => 'Dashboard']);
 	}
 }

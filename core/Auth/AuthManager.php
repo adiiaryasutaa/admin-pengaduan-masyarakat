@@ -48,7 +48,7 @@ class AuthManager
 
 		$id = session()->get('_auth.user');
 
-		return (new $this->authenticatebleModel)->where('id', $id);
+		return (new $this->authenticatebleModel)->where('id', $id)->get();
 	}
 
 	public function guest()
