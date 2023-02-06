@@ -13,3 +13,4 @@ $router->get('/aduan', [AduanController::class, 'showAll']);
 
 $router->get('/login', [AuthController::class, 'login']);
 $router->post('/login', [AuthController::class, 'authenticate']);
+$router->post('/logout', [AuthController::class, 'logout']);

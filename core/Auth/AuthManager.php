@@ -40,6 +40,11 @@ class AuthManager
 		session()->set('_auth.user', $model->id);
 	}
 
+	public function logout()
+	{
+		session()->remove('_auth.user');
+	}
+
 	public function user()
 	{
 		if ($this->guest()) {

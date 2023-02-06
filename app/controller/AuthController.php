@@ -32,4 +32,16 @@ class AuthController extends Controller
 
 		return back();
 	}
+
+	public function logout()
+	{
+		// Middleware
+		if (auth()->guest()) {
+			return redirect('/');
+		}
+
+		auth()->logout();
+
+		return redirect('/login');
+	}
 }
