@@ -21,10 +21,10 @@ class AuthManager
 		$model = (new $this->authenticatebleModel)
 			->select('password')
 			->where($credentials)
-			->get();
+			->first();
 
 		if ($model && password_verify($password, $model->password)) {
-			$this->login($model->select('id')->where($credentials)->get());
+			$this->login($model->select('id')->where($credentials)->first());
 			return true;
 		}
 
@@ -53,7 +53,7 @@ class AuthManager
 
 		$id = session()->get('_auth.user');
 
-		return (new $this->authenticatebleModel)->where('id', $id)->get();
+		return (new $this->authenticatebleModel)->where('id', $id)->first();
 	}
 
 	public function guest()

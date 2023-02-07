@@ -16,7 +16,9 @@ function view(string $view, array $data = [], array $nests = [])
 
 function route(string $route)
 {
-	return Application::getHost() . "\\$route";
+	$uri = Application::getHost();
+
+	return "$uri$route";
 }
 
 function session()

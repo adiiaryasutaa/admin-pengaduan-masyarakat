@@ -25,7 +25,7 @@ class MainLayout implements LayoutContract
 	{
 		return [
 			'{# sidebar #}' => view('partials/sidebar'),
-			'{# top-bar #}' => view('partials/top-bar'),
+			'{# top-bar #}' => view('partials/top-bar', ['user' => auth()->user()]),
 		];
 	}
 }

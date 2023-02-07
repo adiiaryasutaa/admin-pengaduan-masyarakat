@@ -2,8 +2,6 @@
 
 namespace Core\Routing;
 
-use Closure;
-use Core\Http\Request;
 use Core\Http\Response;
 
 class Router
@@ -36,21 +34,9 @@ class Router
 		return $action;
 	}
 
-	protected function getActionWithParameters()
-	{
-		$method = $_SERVER['REQUEST_METHOD'];
-		$uri = $_SERVER['REQUEST_URI'];
-
-		if (isset($this->routes[$method][$uri])) {
-			return $this->routes[$method][$uri];
-		}
-
-		return null;
-	}
-
 	public function resolve()
 	{
-		$action = $this->getActionWithParameters();
+		$action = $this->getAction($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 		if (is_null($action)) {
 			return new Response('404 | Not Found', 404);
@@ -63,5 +49,21 @@ class Router
 		}
 
 		return $result;
+	}
+
+	public function getAction(string $method, string $uri)
+	{
+		if (isset($this->routes[$method][$uri])) {
+			return $this->routes[$method][$uri];
+		}
+
+		return null;
+	}
+
+	public function getRouteByName(string $name)
+	{
+		foreach ($this->routes as $value) {
+
+		}
 	}
 }

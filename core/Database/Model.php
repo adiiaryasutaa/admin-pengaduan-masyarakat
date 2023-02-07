@@ -9,6 +9,7 @@ use RuntimeException;
 
 abstract class Model
 {
+	protected string $modelClass;
 	protected string $table;
 	protected QueryBuilder $queryBuilder;
 	protected array $data = [];
@@ -33,7 +34,7 @@ abstract class Model
 		return $this;
 	}
 
-	public function get()
+	public function first()
 	{
 		$query = $this->queryBuilder->build();
 
@@ -49,6 +50,40 @@ abstract class Model
 		}
 
 		$this->queryBuilder->reset();
+
+		return $this;
+	}
+
+	public function get()
+	{
+		$query = $this->queryBuilder->build();
+
+		$database = Application::getDatabase();
+
+		$statement = $database->prepare($query);
+		$statement->execute($this->queryBuilder->getBinds());
+
+		$models = [];
+
+		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach ($result as $data) {
+			$models[] = (new $this->modelClass())->setData($data);
+		}
+
+		$this->queryBuilder->reset();
+
+		return $models;
+	}
+
+	public function all(array |string $columns = [])
+	{
+		return $this->select($columns)->get();
+	}
+
+	public function setData(array $data)
+	{
+		$this->data = $data;
 
 		return $this;
 	}

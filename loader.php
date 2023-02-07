@@ -37,9 +37,11 @@ $files = [
 	__DIR__ . '\\app\\controller\\HomeController.php',
 	__DIR__ . '\\app\\controller\\AduanController.php',
 	__DIR__ . '\\app\\controller\\AuthController.php',
+	__DIR__ . '\\app\\controller\\ProfileController.php',
 
 	// Models
 	__DIR__ . '\\app\\model\\Petugas.php',
+	__DIR__ . '\\app\\model\\Aduan.php',
 
 	// Layouts
 	__DIR__ . '\\app\\layout\\MainLayout.php',
